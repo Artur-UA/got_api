@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 
+import RandomChar from './../src/components/randomChar/randomChar'
+
+
 function App() {
   return (
     <div className="App">
@@ -18,6 +21,8 @@ function App() {
           Learn React
         </a>
       </header>
+      
+    <RandomChar />
     </div>
   );
 }
