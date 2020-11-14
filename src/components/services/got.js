@@ -76,7 +76,7 @@ export default class GoT {
         
 }
 
-const got = new GoT();
+/* const got = new GoT();
 
 
 got.getAllCharac()
@@ -87,3 +87,4 @@ got.getAllCharac()
 got.getOneCharac(88)
     .then((data) => console.log('OK', data))
     .catch(error => console.log(error))
+ */
