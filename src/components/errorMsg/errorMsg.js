@@ -4,10 +4,10 @@ import './errorMsg.css'
 
 const ErrorMsg = () => {
     return (
-        <>
+        <div className="imgs">
             <img className="imgs"src={img} alt="error"/><br/>
             <span>Oops something went wrong</span>
-        </>
+        </div>
     )
 }
 

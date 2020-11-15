@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PackMan from '../loader';
 import GoT from '../services/got';
 
-export default class ItemList extends Component {
+export default class ItemList extends Component {//компонент который будет рендерить 10 имен 
 
     gotServ = new GoT();
 
@@ -16,7 +16,7 @@ export default class ItemList extends Component {
                 this.setState({
                     list
                 })
-            })
+            }) 
     }
 
     renderList(arrayData) { //отрендерит инфу. имена всех персонажей которые прищли с сервака 
@@ -25,7 +25,7 @@ export default class ItemList extends Component {
                 <li 
                     className="list-group-item" 
                     key={index}
-                    //onClick={this.props.onChareSelected(index)}//для выбора персонажа 
+                    onClick={() => this.props.onChareSelected(21 + index)}//для выбора персонажа 
                 >
                     {item.name}
                 </li>
