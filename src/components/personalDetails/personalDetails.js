@@ -15,15 +15,16 @@ export default class PersonDetails extends Component {
 
     updateChar() { //personId это данные, которые передаются при вызове этого компонента из app.js
         const {personId} = this.props; //props это то что передано при вызове компонента 
-          
+
         if (!personId) { //если нет ничего(тоесть если не нажатая клавиша то ничего не вернет)
             return;
         }
 
+
         this.gotServ.getOneCharac(personId) //но если нажали на клавишу, покажем данные об этом персонаже
             .then((char) => { //меняет инфу 
                 this.setState({char})
-            })
+            })                  
     }
 
     componentDidUpdate(prevProps) {

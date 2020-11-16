@@ -3,7 +3,7 @@ export default class GoT {
     constructor() {
         this._apiBase = 'https://www.anapioficeandfire.com/api'; // _ нижнее подчеркивание говорит другим разрабам что это статичные данные, их не нужно трогать
     }
-    async getResource(url)  { 
+    getResource = async (url) => { 
         const res = await fetch(`${this._apiBase}${url}`)//добавит начало url и продолжение его 
 
         if(!res.ok) {//на случай если будет статус не 200(не ок) то покажет в консоли ошибку
@@ -13,32 +13,32 @@ export default class GoT {
         return await res.json(); //вернет полученый файл который из json формата конвертанет в обычный 
     }
 
-    async getAllCharac() { //так как мы ждем ответ от сервера, нужно применить async/await потому что мы  должны дождаться ответа от сервера, а потом этот ответ записать в state 
+    getAllCharac = async () => { //так как мы ждем ответ от сервера, нужно применить async/await потому что мы  должны дождаться ответа от сервера, а потом этот ответ записать в state 
         //старый вариант 
         //return this.getResource("/characters?page=3&pageSize=10")
 
-        const res = await this.getResource("/characters?page=3&pageSize=10")//получаем массив из сервера с данными 
+        const res = await this.getResource("/characters?page=4&pageSize=10")//получаем массив из сервера с данными 
         return res.map(this._transformCharac)//результат который получили, перебираем его при помощи map (внутрь его передается callback функция ( в нашем случае _transformCharac))
     }
-    async getOneCharac(id) {
+    getOneCharac = async (id) => {
 
         const character = await this.getResource(`/characters/${id}`)//вытаскиеваем описание одного персонажа
         return this._transformCharac(character)//в этот метод просто добавляем персонажа, и его там разложат 
     }
 
-    getBooks(){
+    getBooks = async () => {
         return this.getResource('/books')
     }
 
-    getOneBook(number){
+    getOneBook = async (number) =>{
         return this.getResource(`/books/${number}`)
     }
 
-    getHouses(){
+    getHouses = async () => {
         return this.getResource('/houses')
     }
 
-    getOneHouse(name){
+    getOneHouse = async (name) => {
         return this.getResource(`/houses/${name}`)
     }
 
