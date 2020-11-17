@@ -24,16 +24,21 @@ export default class ItemList extends Component {//компонент котор
     }
 
     renderList(arrayData) { //отрендерит инфу. имена всех персонажей которые прищли с сервака 
-        return arrayData.map((item, index) => {
+        return arrayData.map((item) => {
+            
+            const {id} = item //вытаскиеваем id, по факту item.id 
+            const label = this.props.renderItem(item) //функция из компонента characterPage item по факту это наш объект который приходит с сервера(тоесть все там вместе url, name died и так далее)
+
             return(
                 <li 
                     className="list-group-item" 
-                    /* key={(item.id.replace(/[^\d]/g, ''))}
+                    /* key={(item.id.replace(/[^\d]/g, ''))}  //вылетало из-за того что не стрелочная функция(теряло контекст вызова )
                     onClick={() => this.props.onChareSelected((item.id.replace(/[^\d]/g, '')))}//для выбора персонажа  */
-                    key={item.id}
+                    key={id}//item.id по факту
                     onClick={() => this.props.onChareSelected(item.id)}//для выбора персонажа
                 >
-                    {item.name}
+                    { /*{item.name}  после того как написал код, теперь вместо этого label */} 
+                    {label}
                 </li>
             )
         })

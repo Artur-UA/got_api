@@ -37,7 +37,7 @@ export default class PersonDetails extends Component {
     render() {
 
         if (!this.state.char){//если ничего не выбрано, будет показано
-            return <span className='select-error'>Please select a person</span> 
+            return <span className='select-error'>Please select</span> 
         }
         const {name, gender, born, died, culture, id} = this.state.char;
 

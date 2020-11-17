@@ -99,6 +99,7 @@ export default class App extends Component{
               <Col md='6'>
                   <ItemList onChareSelected={this.onSelectPerson}
                         getData = {this.gotServ.getHouses}
+                        renderItem = {(item) => (<><span>{item.name}</span><button>Click me</button></>)} //возьмет наш объект и вернет из него свойство name 
                         />
               </Col>
               <Col md='6'>
@@ -109,6 +110,7 @@ export default class App extends Component{
               <Col md='6'>
                   <ItemList onChareSelected={this.onSelectPerson}
                         getData = {this.gotServ.getBooks}
+                        renderItem = {(item) => item.name} //возьмет наш объект и вернет из него свойство name 
                   />
               </Col>
               <Col md='6'>
