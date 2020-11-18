@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PersonDetails from '../personalDetails/personalDetails'
 import ItemList from '../../components/itemList/itemList'
+import PersonDetails, {Field} from '../personalDetails/personalDetails'
 import ErrorMsg from '../errorMsg/index'
 import GoT from '../services/got'
 import RowBlock from '../rowBlock/rowBlock'
@@ -35,6 +35,7 @@ export default class CharacterPage extends Component {
 
     onSelectPerson = (id) => { //установит id выбраного персонажа в selectedPerson
         console.log(id);
+        console.log(id.replace(/[^\d]/g, ''));
           this.setState({
               selectedPerson: id.replace(/[^\d]/g, '') //удалляю все кроме цифр 
           })
@@ -55,8 +56,14 @@ export default class CharacterPage extends Component {
             />
         )
 
-        const personalDetails = ( //сделали миникомпонентом в render и потом передадим в return 
-            <PersonDetails personId={this.state.selectedPerson}/>
+        const personalDetails = ( //сделали миникомпонентом в render и потом передадим в return <      строка   Field field='gender' label='Gender'/> * так они не отрисуются, для этого нужно в компоненте нижнего порядка написать {this.props.children} но и так тоже будет виден только gender  Gender  так как инфа на момент отрисовки не успеет прити с сервера 
+            <PersonDetails personId={this.state.selectedPerson}>
+                    <Field field='gender' label='Gender'/> 
+                    <Field field='born' label='Born'/>
+                    <Field field='died' label='Died'/> 
+                    <Field field='culture' label='Culture'/> 
+                    <Field field='id' label='ID'/> 
+            </PersonDetails>
         )
 
         return(
