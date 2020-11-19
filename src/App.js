@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import {Col, Row, Container} from 'reactstrap'
 import logo from './logo.svg';
 import './App.css';
-import ItemList from './components/itemList/itemList' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение 
+//import ItemList from './components/itemList/itemList' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение 
 import RandomChar from './../src/components/randomChar/randomChar';
-import PersonDetails from './components/personalDetails/personalDetails' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение //тут тоже осталось для показа книг и домов
+//import PersonDetails from './components/personalDetails/personalDetails' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение //тут тоже осталось для показа книг и домов
 import ErrorMsg from './components/errorMsg/index';
 import CharacterPage from './components/characterPage';
 import GoT from './components/services/got'
+import PagesBooks from './components/pages/pagesBooks';
+import PagesHouse from './components/pages/pagesHouse';
 
 
 
@@ -91,10 +93,7 @@ export default class App extends Component{
               <Col md='6'>
                   <PersonDetails personId={this.state.selectedPerson}/>
               </Col>
-          </Row>*/}
-
-          <CharacterPage/>
-
+          </Row>
           <Row> 
               <Col md='6'>
                   <ItemList onChareSelected={this.onSelectPerson}
@@ -117,6 +116,15 @@ export default class App extends Component{
                   <PersonDetails personId={this.state.selectedPerson}/>
               </Col>
           </Row>
+
+          */}
+
+        <CharacterPage/>
+
+        <PagesBooks/>
+
+        <PagesHouse/>
+
       </Container>
 
 

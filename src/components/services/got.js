@@ -20,6 +20,7 @@ export default class GoT {
         const res = await this.getResource("/characters?page=4&pageSize=10")//получаем массив из сервера с данными 
         return res.map(this._transformCharac)//результат который получили, перебираем его при помощи map (внутрь его передается callback функция ( в нашем случае _transformCharac))
     }
+    
     getOneCharac = async (id) => {
 
         const character = await this.getResource(`/characters/${id}`)//вытаскиеваем описание одного персонажа

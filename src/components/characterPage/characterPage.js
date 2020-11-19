@@ -34,10 +34,10 @@ export default class CharacterPage extends Component {
     }
 
     onSelectPerson = (id) => { //установит id выбраного персонажа в selectedPerson
-        console.log(id);
-        console.log(id.replace(/[^\d]/g, ''));
+        console.log(id.id);
+        console.log(id.id.replace(/[^\d]/g, ''));
           this.setState({
-              selectedPerson: id.replace(/[^\d]/g, '') //удалляю все кроме цифр 
+              selectedPerson: id.id.replace(/[^\d]/g, '') //удалляю все кроме цифр 
           })
     }
     
@@ -57,7 +57,9 @@ export default class CharacterPage extends Component {
         )
 
         const personalDetails = ( //сделали миникомпонентом в render и потом передадим в return <      строка   Field field='gender' label='Gender'/> * так они не отрисуются, для этого нужно в компоненте нижнего порядка написать {this.props.children} но и так тоже будет виден только gender  Gender  так как инфа на момент отрисовки не успеет прити с сервера 
-            <PersonDetails personId={this.state.selectedPerson}>
+            <PersonDetails personId={this.state.selectedPerson}
+                    getData = {this.gotServ.getOneCharac}
+            >
                     <Field field='gender' label='Gender'/> 
                     <Field field='born' label='Born'/>
                     <Field field='died' label='Died'/> 

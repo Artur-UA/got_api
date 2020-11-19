@@ -35,7 +35,7 @@ export default class ItemList extends Component {//компонент котор
                     /* key={(item.id.replace(/[^\d]/g, ''))}  //вылетало из-за того что не стрелочная функция(теряло контекст вызова )
                     onClick={() => this.props.onChareSelected((item.id.replace(/[^\d]/g, '')))}//для выбора персонажа  */
                     key={id}//item.id по факту
-                    onClick={() => this.props.onChareSelected(item.id)}//для выбора персонажа
+                    onClick={() => this.props.onChareSelected(item)}//для выбора персонажа
                 >
                     { /*{item.name}  после того как написал код, теперь вместо этого label */} 
                     {label}

@@ -38,8 +38,10 @@ export default class PersonDetails extends Component {
             return;
         }
 
-        
-        this.gotServ.getOneCharac(personId) 
+        const {getData} = this.props //приходят данные, в зависимости от того, кто запускает (подставляется разная функция, в зависимости от запускаемого компонента )
+
+        //this.gotServ.getOneCharac(personId) 
+        getData(personId)    
             .then((char) => { 
                 this.setState({char})
             })                  
