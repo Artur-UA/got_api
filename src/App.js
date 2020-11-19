@@ -4,14 +4,13 @@ import logo from './logo.svg';
 import './App.css';
 //import ItemList from './components/itemList/itemList' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение 
 import RandomChar from './../src/components/randomChar/randomChar';
-//import PersonDetails from './components/personalDetails/personalDetails' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение //тут тоже осталось для показа книг и домов
+//import ItemDetails from './components/itemDetails/itemDetails' //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение //тут тоже осталось для показа книг и домов
 import ErrorMsg from './components/errorMsg/index';
 import CharacterPage from './components/characterPage';
 import GoT from './components/services/got'
-import PagesBooks from './components/pages/pagesBooks';
-import PagesHouse from './components/pages/pagesHouse';
-
-
+import {PagesBooks, PagesHouse, DetailBook} from './components/pages'
+import {Route, Switch, Redirect} from 'react-router-dom'
+import Navbars from './components/navBar/navbar'
 
 
 export default class App extends Component{
@@ -30,7 +29,7 @@ export default class App extends Component{
         })
     }
 
- /*    onSelectPerson = (id) => { //установит id выбраного персонажа в selectedPerson  //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение 
+ /*    onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson  //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение 
       console.log(id);
         this.setState({
             selectedPerson: id
@@ -78,6 +77,8 @@ export default class App extends Component{
         </a>
       </header>
 
+        <Navbars/>
+
       <Container>
           <Row>
               <Col lg={{size: 5, offset: 0}}>
@@ -88,42 +89,50 @@ export default class App extends Component{
 
           {/*<Row> //перенес в characterPerson.js для того, чтобы в случае ошибки навесить там жизненный цикл для ошибки, чтобы не крашилось все приложение 
               <Col md='6'>
-                  <ItemList onChareSelected={this.onSelectPerson}/>
+                  <ItemList onChareSelected={this.onSelectItem}/>
               </Col>
               <Col md='6'>
-                  <PersonDetails personId={this.state.selectedPerson}/>
+                  <ItemDetails personId={this.state.selectedPerson}/>
               </Col>
           </Row>
           <Row> 
               <Col md='6'>
-                  <ItemList onChareSelected={this.onSelectPerson}
+                  <ItemList onChareSelected={this.onSelectItem}
                         getData = {this.gotServ.getHouses}
                         renderItem = {(item) => (<><span>{item.name}</span><button>Click me</button></>)} //возьмет наш объект и вернет из него свойство name 
                         />
               </Col>
               <Col md='6'>
-                  <PersonDetails personId={this.state.selectedPerson}/>
+                  <ItemDetails personId={this.state.selectedPerson}/>
               </Col>
           </Row>
           <Row> 
               <Col md='6'>
-                  <ItemList onChareSelected={this.onSelectPerson}
+                  <ItemList onChareSelected={this.onSelectItem}
                         getData = {this.gotServ.getBooks}
                         renderItem = {(item) => item.name} //возьмет наш объект и вернет из него свойство name 
                   />
               </Col>
               <Col md='6'>
-                  <PersonDetails personId={this.state.selectedPerson}/>
+                  <ItemDetails personId={this.state.selectedPerson}/>
               </Col>
           </Row>
 
           */}
 
-        <CharacterPage/>
 
-        <PagesBooks/>
+        <Switch>
+            <Route path='/person' component={CharacterPage} />
+            <Route path='/house' component={PagesHouse} />
+            <Route path='/books' exact component={PagesBooks} />
+            <Route path='/books/:id'  render={
+                ({match}) => {
+                    const {id} = match.params;
 
-        <PagesHouse/>
+                    return <DetailBook bookId = {id}/> } 
+            }/>
+            <Redirect to='/' />
+        </Switch>
 
       </Container>
 

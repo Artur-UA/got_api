@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RowBlock from '../rowBlock/rowBlock';
 import ErrorMsg from '../errorMsg/index'
 import ItemList from '../itemList/itemList'
-import PersonDetails, {Field} from '../personalDetails/personalDetails'
+import ItemDetails, {Field} from '../itemDetails/itemDetails'
 import GoT from '../services/got'
 
 export default class PagesHouse extends Component {
@@ -21,7 +21,7 @@ export default class PagesHouse extends Component {
         })
     }
 
-    onSelectPerson = (id) => { //установит id выбраного персонажа в selectedPerson
+    onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson
         console.log(id.url);
           this.setState({
               item: id.url.replace(/[^\d]/g, '') //удалляю все кроме цифр 
@@ -35,14 +35,14 @@ export default class PagesHouse extends Component {
 
         const itemList = (
             <ItemList 
-                onChareSelected={this.onSelectPerson}
+                onChareSelected={this.onSelectItem}
                 getData = {this.gotServ.getHouses}
                 renderItem = {(item) => (<><span>{item.name}</span><button>Click me</button></>)}
             />
         )
         
-        const personalDetails = (
-            <PersonDetails personId={this.state.item}
+        const itemDetails = (
+            <ItemDetails itemId={this.state.item}
                 getData = {this.gotServ.getOneHouse}
             >
                 <Field field='name' label='Name'/> 
@@ -52,10 +52,10 @@ export default class PagesHouse extends Component {
                 <Field field='overlord' label='Overlord'/> 
                 <Field field='ancestralWeapons' label='Ancestral Weapons'/>
                 <Field field='url' label='ID'/> 
-            </PersonDetails>
+            </ItemDetails>
         )
         return(
-            <RowBlock left={itemList}  right={personalDetails}/>
+            <RowBlock left={itemList}  right={itemDetails}/>
         )
     }
 }

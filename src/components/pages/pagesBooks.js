@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RowBlock from '../rowBlock/rowBlock';
 import ErrorMsg from '../errorMsg/index'
 import ItemList from '../itemList/itemList'
-import PersonDetails, {Field} from '../personalDetails/personalDetails'
+import ItemDetails, {Field} from '../itemDetails/itemDetails'
 import GoT from '../services/got'
 
 export default class PagesBooks extends Component {
@@ -21,7 +21,7 @@ export default class PagesBooks extends Component {
         })
     }
 
-    onSelectPerson = (id) => { //установит id выбраного персонажа в selectedPerson
+    onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson
         console.log(id);
           this.setState({
               item: id.url.replace(/[^\d]/g, '') //удалляю все кроме цифр 
@@ -35,14 +35,14 @@ export default class PagesBooks extends Component {
 
         const itemList = (
             <ItemList 
-                onChareSelected={this.onSelectPerson}
+                onChareSelected={this.onSelectItem}
                 getData = {this.gotServ.getBooks}
                 renderItem = {(item) => (<>{item.name}</>)}
             />
         )
         
-        const personalDetails = (
-            <PersonDetails personId={this.state.item}
+        const itemDetails = (
+            <ItemDetails itemId={this.state.item}
                 getData = {this.gotServ.getOneBook}
             >
                 <Field field='name' label='Name'/> 
@@ -51,10 +51,10 @@ export default class PagesBooks extends Component {
                 <Field field='released' label='Released'/> 
                 <Field field='authors' label='Authors'/> 
                 <Field field='url' label='ID'/> 
-            </PersonDetails>
+            </ItemDetails>
         )
         return(
-            <RowBlock left={itemList}  right={personalDetails}/>
+            <RowBlock left={itemList}  right={itemDetails}/>
         )
     }
 }
@@ -62,12 +62,12 @@ export default class PagesBooks extends Component {
 
 <Row> 
 <Col md='6'>
-    <ItemList onChareSelected={this.onSelectPerson}
+    <ItemList onChareSelected={this.onSelectItem}
           getData = {this.gotServ.getHouses}
           renderItem = {(item) => (<><span>{item.name}</span><button>Click me</button></>)} //возьмет наш объект и вернет из него свойство name 
           />
 </Col>
 <Col md='6'>
-    <PersonDetails personId={this.state.selectedPerson}/>
+    <ItemDetails personId={this.state.selectedPerson}/>
 </Col>
 </Row> */

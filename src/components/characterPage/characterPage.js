@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ItemList from '../../components/itemList/itemList'
-import PersonDetails, {Field} from '../personalDetails/personalDetails'
+import ItemDetails, {Field} from '../itemDetails/itemDetails'
 import ErrorMsg from '../errorMsg/index'
 import GoT from '../services/got'
 import RowBlock from '../rowBlock/rowBlock'
@@ -33,7 +33,7 @@ export default class CharacterPage extends Component {
         })
     }
 
-    onSelectPerson = (id) => { //установит id выбраного персонажа в selectedPerson
+    onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson
         console.log(id.id);
         console.log(id.id.replace(/[^\d]/g, ''));
           this.setState({
@@ -49,15 +49,15 @@ export default class CharacterPage extends Component {
 
         const itemList = ( //сделали миникомпонентом в render и потом передадим в return 
             <ItemList 
-                onChareSelected={this.onSelectPerson}
+                onChareSelected={this.onSelectItem}
                 getData = {this.gotServ.getAllCharac}
                 //renderItem = {(item) => `${item.name} (${item.gender})`} //возьмет наш объект и вернет из него свойство name 
                 renderItem = {({name, gender}) => `${name} (${gender})`} //можно сразу item разложить на name и gender и не писать еще раз 
             />
         )
 
-        const personalDetails = ( //сделали миникомпонентом в render и потом передадим в return <      строка   Field field='gender' label='Gender'/> * так они не отрисуются, для этого нужно в компоненте нижнего порядка написать {this.props.children} но и так тоже будет виден только gender  Gender  так как инфа на момент отрисовки не успеет прити с сервера 
-            <PersonDetails personId={this.state.selectedPerson}
+        const itemDetails = ( //сделали миникомпонентом в render и потом передадим в return <      строка   Field field='gender' label='Gender'/> * так они не отрисуются, для этого нужно в компоненте нижнего порядка написать {this.props.children} но и так тоже будет виден только gender  Gender  так как инфа на момент отрисовки не успеет прити с сервера 
+            <ItemDetails itemId={this.state.selectedPerson}
                     getData = {this.gotServ.getOneCharac}
             >
                     <Field field='gender' label='Gender'/> 
@@ -65,25 +65,25 @@ export default class CharacterPage extends Component {
                     <Field field='died' label='Died'/> 
                     <Field field='culture' label='Culture'/> 
                     <Field field='id' label='ID'/> 
-            </PersonDetails>
+            </ItemDetails>
         )
 
         return(
-/*             {/* <Row>  //было раньше, переписали на 3 отдельных не связаных компонента. (itemList, personalDetails, RowBlock) b чуть ниже их подключил
+/*             {/* <Row>  //было раньше, переписали на 3 отдельных не связаных компонента. (itemList, itemDetails, RowBlock) b чуть ниже их подключил
               <Col md='6'>
                   <ItemList 
-                        onChareSelected={this.onSelectPerson}
+                        onChareSelected={this.onSelectItem}
                         getData = {this.gotServ.getAllCharac}
                         //renderItem = {(item) => `${item.name} (${item.gender})`} //возьмет наш объект и вернет из него свойство name 
                         renderItem = {({name, gender}) => `${name} (${gender})`} //можно сразу item разложить на name и gender и не писать еще раз 
                   />
               </Col>
               <Col md='6'>
-                  <PersonDetails personId={this.state.selectedPerson}/>
+                  <ItemDetails personId={this.state.selectedPerson}/>
               </Col>
           </Row> } */
 
-          <RowBlock left={itemList} right={personalDetails} />
+          <RowBlock left={itemList} right={itemDetails} />
 
           
         )
