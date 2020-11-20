@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import RowBlock from '../rowBlock/rowBlock';
+//import RowBlock from '../rowBlock/rowBlock';
 import ErrorMsg from '../errorMsg/index'
 import ItemList from '../itemList/itemList'
-import ItemDetails, {Field} from '../itemDetails/itemDetails'
+//import ItemDetails, {Field} from '../itemDetails/itemDetails'
 import GoT from '../services/got'
+import {withRouter} from 'react-router-dom'
 
-export default class PagesBooks extends Component {
+class PagesBooks extends Component {
     
     gotServ = new GoT()
 
     state = {
         error: false,
-        item: 4
+        //item: 4  теперь только после нажатия
     }
 
     componentDidCatch(){
@@ -21,18 +22,18 @@ export default class PagesBooks extends Component {
         })
     }
 
-    onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson
+/*     onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson    больше не нужен, так как теперь все откроется на новой странице
         console.log(id);
           this.setState({
               item: id.url.replace(/[^\d]/g, '') //удалляю все кроме цифр 
           })
-    }
+    } */
 
     render(){
         if(this.state.error){
             return <ErrorMsg/>
         }
-
+/* 
         const itemList = (
             <ItemList 
                 onChareSelected={this.onSelectItem}
@@ -52,9 +53,19 @@ export default class PagesBooks extends Component {
                 <Field field='authors' label='Authors'/> 
                 <Field field='url' label='ID'/> 
             </ItemDetails>
-        )
+        ) */
         return(
-            <RowBlock left={itemList}  right={itemDetails}/>
+           /*  <RowBlock left={itemList}  right={itemDetails}/>  теперь тут рендерится только правая часть, подробно теперь будет открыватся на новой странице*/
+
+            <ItemList 
+                onChareSelected={(itemId) => { 
+                    const id = itemId.url.replace(/[^\d]/g, '')
+                    this.props.history.push(`/books/${id}`)
+                }} 
+                getData = {this.gotServ.getBooks}
+                renderItem = {(item) => (<>{item.name}</>)}
+            />
+
         )
     }
 }
@@ -71,3 +82,5 @@ export default class PagesBooks extends Component {
     <ItemDetails personId={this.state.selectedPerson}/>
 </Col>
 </Row> */
+
+export default withRouter(PagesBooks)

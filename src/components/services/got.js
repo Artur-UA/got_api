@@ -28,19 +28,27 @@ export default class GoT {
     }
 
     getBooks = async () => {
-        return this.getResource('/books')
+/*         const books = await this.getResource('/books')
+        return this._transformBook(books) */
+        return await this.getResource('/books')
     }
 
     getOneBook = async (number) =>{
-        return this.getResource(`/books/${number}`)
+/*         const book = await this.getResource(`/books/${number}`)
+        return this._transformBook(book) */
+        return await this.getResource(`/books/${number}`)
     }
 
     getHouses = async () => {
-        return this.getResource('/houses')
+/*         const houses = await this.getResource('/houses')
+        return this._transformHouse(houses) */
+        return await this.getResource('/houses')
     }
 
     getOneHouse = async (name) => {
-        return this.getResource(`/houses/${name}`)
+/*         const house = await this.getResource(`/houses/${name}`)
+        return this._transformHouse(house) */
+        return await this.getResource(`/houses/${name}`)
     }
 
     _transformCharac(char){//метод чтобы доставать параметры из сервера и подставлять ее в state вместо null 

@@ -25,7 +25,6 @@ export default class ItemList extends Component {//компонент котор
 
     renderList(arrayData) { //отрендерит инфу. имена всех персонажей которые прищли с сервака 
         return arrayData.map((item) => {
-            
             const {id} = item //вытаскиеваем id, по факту item.id 
             const label = this.props.renderItem(item) //функция из компонента characterPage item по факту это наш объект который приходит с сервера(тоесть все там вместе url, name died и так далее)
 
