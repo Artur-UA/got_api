@@ -21,10 +21,10 @@ export default class PagesHouse extends Component {
         })
     }
 
-    onSelectItem = (id) => { //установит id выбраного персонажа в selectedPerson
+    onSelectItem = (id) => { 
         console.log(id.url);
           this.setState({
-              item: id.url.replace(/[^\d]/g, '') //удалляю все кроме цифр 
+              item: id.url.replace(/[^\d]/g, '') 
           })
     }
 
@@ -37,7 +37,7 @@ export default class PagesHouse extends Component {
             <ItemList 
                 onChareSelected={this.onSelectItem}
                 getData = {this.gotServ.getHouses}
-                renderItem = {(item) => (<><span>{item.name}</span><button>Click me</button></>)}
+                renderItem = {(item) => (<><span>{item.name}</span><button className='button-house' style={{verticalAlign:"middle"}}><span>Click me </span></button></>)}
             />
         )
         

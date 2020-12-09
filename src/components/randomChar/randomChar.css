@@ -3,10 +3,15 @@
     padding: 25px 25px 15px 25px;
     margin-bottom: 40px;
     border: 1px solid black;
+    background-color: #707070;
+}
+.random-block li {
+    background-color: #707070;
 }
 .random-block h4 {
     margin-bottom: 20px;
     text-align: center;
+
 }
 .term {
     font-weight: bold;

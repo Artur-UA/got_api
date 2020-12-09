@@ -1,57 +1,47 @@
 export default class GoT {
 
     constructor() {
-        this._apiBase = 'https://www.anapioficeandfire.com/api'; // _ нижнее подчеркивание говорит другим разрабам что это статичные данные, их не нужно трогать
+        this._apiBase = 'https://www.anapioficeandfire.com/api'; 
     }
     getResource = async (url) => { 
-        const res = await fetch(`${this._apiBase}${url}`)//добавит начало url и продолжение его 
+        const res = await fetch(`${this._apiBase}${url}`)
 
-        if(!res.ok) {//на случай если будет статус не 200(не ок) то покажет в консоли ошибку
+        if(!res.ok) {
             throw new Error(`Could not fetch ${url}, status: ${res.status}`)
         }
 
-        return await res.json(); //вернет полученый файл который из json формата конвертанет в обычный 
+        return await res.json(); 
     }
 
-    getAllCharac = async () => { //так как мы ждем ответ от сервера, нужно применить async/await потому что мы  должны дождаться ответа от сервера, а потом этот ответ записать в state 
-        //старый вариант 
-        //return this.getResource("/characters?page=3&pageSize=10")
+    getAllCharac = async () => { 
 
-        const res = await this.getResource("/characters?page=4&pageSize=10")//получаем массив из сервера с данными 
-        return res.map(this._transformCharac)//результат который получили, перебираем его при помощи map (внутрь его передается callback функция ( в нашем случае _transformCharac))
+        const res = await this.getResource("/characters?page=4&pageSize=10")
+        return res.map(this._transformCharac)
     }
     
     getOneCharac = async (id) => {
 
-        const character = await this.getResource(`/characters/${id}`)//вытаскиеваем описание одного персонажа
-        return this._transformCharac(character)//в этот метод просто добавляем персонажа, и его там разложат 
+        const character = await this.getResource(`/characters/${id}`)
+        return this._transformCharac(character)
     }
 
     getBooks = async () => {
-/*         const books = await this.getResource('/books')
-        return this._transformBook(books) */
         return await this.getResource('/books')
     }
 
     getOneBook = async (number) =>{
-/*         const book = await this.getResource(`/books/${number}`)
-        return this._transformBook(book) */
         return await this.getResource(`/books/${number}`)
     }
 
     getHouses = async () => {
-/*         const houses = await this.getResource('/houses')
-        return this._transformHouse(houses) */
         return await this.getResource('/houses')
     }
 
     getOneHouse = async (name) => {
-/*         const house = await this.getResource(`/houses/${name}`)
-        return this._transformHouse(house) */
         return await this.getResource(`/houses/${name}`)
     }
 
-    _transformCharac(char){//метод чтобы доставать параметры из сервера и подставлять ее в state вместо null 
+    _transformCharac(char){
         return{
             name: char.name,
             gender: char.gender,
@@ -84,16 +74,3 @@ export default class GoT {
     }
         
 }
-
-/* const got = new GoT();
-
-
-got.getAllCharac()
-    .then((data) => console.log('OK', data))
-    .then(res => res.forEach( item => console.log(item.name)))
-    .catch(error => console.log(error))
-
-got.getOneCharac(88)
-    .then((data) => console.log('OK', data))
-    .catch(error => console.log(error))
- */
